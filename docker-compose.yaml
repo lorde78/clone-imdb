@@ -6,9 +6,9 @@ services:
             context: .
             dockerfile: Dockerfile
         ports:
-            - '5555:80'
+            - '2345:80'
         volumes:
-            - ./back-end:/var/www/html
+            - ./app:/var/www/html
 
     db:
         image: 'mariadb'
@@ -18,7 +18,7 @@ services:
             MYSQL_ROOT_PASSWORD: password
         volumes:
             # Pour lancer un dump automatiquement au montage du conteneur
-            - ./database/data.sql:/docker-entrypoint-initdb.d/data.sql
+            - ./database/data.sql:/docker-entrypoint-initdb.d/dump.sql
 
 
     phpmyadmin:
