@@ -22,7 +22,7 @@ services:
 
 
     phpmyadmin:
-        image: phpmyadmin
+        image: phpmyadmin:5.1.1
         restart: always
         ports:
             - '8080:80'
