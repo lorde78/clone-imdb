@@ -28,16 +28,17 @@ $userAlreadyExists = (bool)$query->fetchAll(PDO::FETCH_ASSOC)[0]["COUNT(*)"];
 
 if ($userAlreadyExists) {
     echo json_encode([
+
         'status' => 'error',
         'message' => 'Username already exists'
     ]);
     exit;
 }
 
-$insert = $pdo->prepare('INSERT INTO User (`username`, `password`, token) VALUES (:username, :password, :token)');
+$insert = $pdo->prepare('INSERT INTO User (`username`, `password`) VALUES (:username, :password)');
 $insert->bindValue('username', $username, PDO::PARAM_STR);
 $insert->bindValue('password', password_hash($password, PASSWORD_BCRYPT), PDO::PARAM_STR);
-$insert->bindValue('token', TokenHelper::buildToken(), PDO::PARAM_STR);
+// $insert->bindValue('token', TokenHelper::buildToken(), PDO::PARAM_STR);
 
 if ($insert->execute()) {
     $lastInsertId = $pdo->lastInsertId();
