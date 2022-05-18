@@ -9,7 +9,7 @@ import useRegister from "./Hook/useRegister";
 import useGetMovieList from "./Hook/useGetMovieList";
 import MovieList from "./Component/MovieList";
 import HideIfNotLogged from "./Component/HideIfNotLogged";
-import MovieForm from "./Component/MovieForm";
+import CommentForm from "./Component/CommentForm";
 import useGetCookies from "./Hook/useGetCookies";
 import useEraseCookie from "./Hook/useEraseCookie";
 import axios from "axios";
@@ -91,7 +91,7 @@ export default function App() {
 
                 <HideIfNotLogged loggedUser={loggedUser}>
                     <button className='btn btn-danger d-block mx-auto mb-3' onClick={handleDisconnect}>Disconnect</button>
-                    <MovieForm loggedUser={loggedUser} setNeedsUpdate={setNeedsUpdate} />
+                    <CommentForm loggedUser={loggedUser} setNeedsUpdate={setNeedsUpdate} />
                 </HideIfNotLogged>
 
                 <Routes>
