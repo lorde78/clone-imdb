@@ -4,7 +4,7 @@ require_once './vendor/autoload.php';
 require_once 'headers.php';
 require_once 'Classes/PDOFactory.php';
 require_once 'Classes/User.php';
-require_once 'Classes/Blog.php';
+require_once 'Classes/Movie.php';
 
 //$token = str_replace('Bearer ', '', getallheaders()['Authorization'] ?? '') ?? '';
 
@@ -17,8 +17,8 @@ require_once 'Classes/Blog.php';
  * avec les Interceptor de Axios !
  */
 $token = $_COOKIE['hetic_token'] ?? '';
-$blogTitle = $_POST['title'] ?? '';
-$blogContent = $_POST['content'] ?? '';
+$movieTitle = $_POST['title'] ?? '';
+$movieContent = $_POST['content'] ?? '';
 
 if (!$token) {
     echo json_encode([
@@ -28,10 +28,10 @@ if (!$token) {
     exit;
 }
 
-if (!$blogContent || !$blogTitle) {
+if (!$movieContent || !$movieTitle) {
     echo json_encode([
         'status' => 'error',
-        'message' => 'Your blog needs a title and a content'
+        'message' => 'Your movie needs a title and a content'
     ]);
     exit;
 }
@@ -41,20 +41,20 @@ $pdo = (new PDOFactory())->getPdo();
 try {
     $jwt = \Firebase\JWT\JWT::decode($token, new \Firebase\JWT\Key($appSecret, 'HS256'));
 
-    $blog = (new Blog())
-        ->setTitle($blogTitle)
-        ->setContent($blogContent)
+    $movie = (new Movie())
+        ->setTitle($movieTitle)
+        ->setContent($movieContent)
         ->setAuthorId($jwt->userId);
 
-    $update = $pdo->prepare('INSERT INTO Blog (title, content, authorId, date) VALUES (:title, :content, :authorId, NOW())');
-    $update->bindValue('title', $blog->getTitle(), PDO::PARAM_STR);
-    $update->bindValue('content', $blog->getContent(), PDO::PARAM_STR);
+    $update = $pdo->prepare('INSERT INTO Movie (title, content, authorId, date) VALUES (:title, :content, :authorId, NOW())');
+    $update->bindValue('title', $movie->getTitle(), PDO::PARAM_STR);
+    $update->bindValue('content', $movie->getContent(), PDO::PARAM_STR);
     $update->bindValue('authorId', $jwt->userId, PDO::PARAM_INT);
 
     if ($update->execute()) {
         echo json_encode([
             'status' => 'success',
-            'message' => 'Blog saved',
+            'message' => 'Movie saved',
         ]);
     }
 

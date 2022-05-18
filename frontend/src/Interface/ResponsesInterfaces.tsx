@@ -7,12 +7,12 @@ export interface LoginResponseInterface {
     username?: string
 }
 
-export interface BlogPostResponseInterface {
+export interface MoviePostResponseInterface {
     status: StatusType,
     message: string
 }
 
-export interface BlogInterface {
+export interface MovieInterface {
     id?: number,
     date: string,
     title: string,

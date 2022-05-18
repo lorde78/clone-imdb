@@ -2,11 +2,11 @@
 
 require_once 'headers.php';
 require_once 'Classes/PDOFactory.php';
-require_once 'Classes/Blog.php';
+require_once 'Classes/Movie.php';
 
 $pdo = (new PDOFactory())->getPdo();
 
-$query = $pdo->query('SELECT * FROM User INNER JOIN Blog ON Blog.authorId = User.id ORDER BY `date` DESC');
+$query = $pdo->query('SELECT * FROM User INNER JOIN Movie ON Movie.authorId = User.id ORDER BY `date` DESC');
 $query->setFetchMode(PDO::FETCH_ASSOC);
 
 $res = [];

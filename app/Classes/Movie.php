@@ -1,6 +1,6 @@
 <?php
 
-class Blog
+class Movie
 {
     private int $id;
     private int $authorId;
@@ -18,9 +18,9 @@ class Blog
 
     /**
      * @param int $id
-     * @return Blog
+     * @return Movie
      */
-    public function setId(int $id): Blog
+    public function setId(int $id): Movie
     {
         $this->id = $id;
         return $this;
@@ -36,9 +36,9 @@ class Blog
 
     /**
      * @param int $authorId
-     * @return Blog
+     * @return Movie
      */
-    public function setAuthorId(int $authorId): Blog
+    public function setAuthorId(int $authorId): Movie
     {
         $this->authorId = $authorId;
         return $this;
@@ -54,9 +54,9 @@ class Blog
 
     /**
      * @param string $date
-     * @return Blog
+     * @return Movie
      */
-    public function setDate(string $date): Blog
+    public function setDate(string $date): Movie
     {
         $this->date = $date;
         return $this;
@@ -72,9 +72,9 @@ class Blog
 
     /**
      * @param string $title
-     * @return Blog
+     * @return Movie
      */
-    public function setTitle(string $title): Blog
+    public function setTitle(string $title): Movie
     {
         $this->title = $title;
         return $this;
@@ -90,9 +90,9 @@ class Blog
 
     /**
      * @param string $content
-     * @return Blog
+     * @return Movie
      */
-    public function setContent(string $content): Blog
+    public function setContent(string $content): Movie
     {
         $this->content = $content;
         return $this;

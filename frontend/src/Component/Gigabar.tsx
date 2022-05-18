@@ -4,7 +4,7 @@ import Gigabar_additionnal from "./Gigabar_additionnal";
 
 
 // @ts-ignore
-export default function Gigabar({blogList}) {
+export default function Gigabar({movieList}) {
     // @ts-ignore
     return (
         <div className="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark">
@@ -21,7 +21,7 @@ export default function Gigabar({blogList}) {
                 <Routes>
                     <Route path="*" element={
                         // @ts-ignore
-                        <NeedAuth blogList={blogList}>
+                        <NeedAuth movieList={movieList}>
                             <Gigabar_additionnal/>
                         </NeedAuth>
                     }/>
