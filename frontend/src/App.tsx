@@ -1,8 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import useLogin from "./Hook/useLogin";
-import {BlogInterface, LoginResponseInterface} from "./Interface/ResponsesInterfaces";
-import {LocalUserInterface} from "./Interface/LocalUserInterface";
+import { BlogInterface, LoginResponseInterface } from "./Interface/ResponsesInterfaces";
+import { LocalUserInterface } from "./Interface/LocalUserInterface";
 import LoginForm from "./Component/LoginForm";
 import HideIfLogged from "./Component/HideIfLogged";
 import useRegister from "./Hook/useRegister";
@@ -13,6 +13,9 @@ import BlogForm from "./Component/BlogForm";
 import useGetCookies from "./Hook/useGetCookies";
 import useEraseCookie from "./Hook/useEraseCookie";
 import axios from "axios";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import NeedAuth from "./Component/NeedAuth";
+import Gigabar from "./Component/Gigabar";
 
 export default function App() {
     const [loggedUser, setLoggedUser] = useState<LoginResponseInterface>({
@@ -20,7 +23,7 @@ export default function App() {
         token: "",
         username: ""
     })
-    const [localUser, setLocalUser] = useState<LocalUserInterface>({password: "", username: ""})
+    const [localUser, setLocalUser] = useState<LocalUserInterface>({ password: "", username: "" })
     const [blogList, setBlogList] = useState<BlogInterface[]>([])
     // Determines if the user wants to LogIn or to Register
     const [needsLogin, setNeedsLogin] = useState<boolean>(true)
@@ -73,17 +76,39 @@ export default function App() {
     }
 
     return (
-        <div className='container mt-5'>
-            <HideIfLogged loggedUser={loggedUser}>
-                <LoginForm setLocalUser={setLocalUser} needsLogin={needsLogin} setNeedsLogin={setNeedsLogin}/>
-            </HideIfLogged>
+        <BrowserRouter>
+             <Gigabar blogList={blogList}/>
 
-            <HideIfNotLogged loggedUser={loggedUser}>
-                <button className='btn btn-danger d-block mx-auto mb-3' onClick={handleDisconnect}>Disconnect</button>
-                <BlogForm loggedUser={loggedUser} setNeedsUpdate={setNeedsUpdate}/>
-            </HideIfNotLogged>
+            <div className='container mt-5'>
+                <HideIfLogged loggedUser={loggedUser}>
+                    <LoginForm setLocalUser={setLocalUser} needsLogin={needsLogin} setNeedsLogin={setNeedsLogin} />
+                </HideIfLogged>
 
-            <BlogList blogList={blogList}/>
-        </div>
+                <HideIfNotLogged loggedUser={loggedUser}>
+                    <button className='btn btn-danger d-block mx-auto mb-3' onClick={handleDisconnect}>Disconnect</button>
+                    <BlogForm loggedUser={loggedUser} setNeedsUpdate={setNeedsUpdate} />
+                </HideIfNotLogged>
+
+                <Routes>
+                    <Route path='/' element={
+                        <NeedAuth>
+                            <BlogList blogList={blogList} />
+                        </NeedAuth>
+                    } />
+                    <Route path="/" element={<BlogList blogList={blogList} />} />
+                    <Route path="/mes-posts/" element={
+                        <NeedAuth>
+                            <BlogList blogList={blogList} />
+                        </NeedAuth>
+                    } />
+                    <Route path="/autres-posts/" element={
+                        <NeedAuth>
+                            <BlogList blogList={blogList} />
+                        </NeedAuth>
+                    } />
+                </Routes>
+            </div>
+        </BrowserRouter>
+
     )
 }
