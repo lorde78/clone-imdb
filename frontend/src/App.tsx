@@ -16,11 +16,12 @@ import axios from "axios";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import NeedAuth from "./Component/NeedAuth";
 import Gigabar from "./Component/Gigabar";
-// import {createStore, } from 'redux'
-// // @ts-ignore
-// import allReducers from './Reducers/index'
 
-// const store = createStore(allReducers)
+import {createStore } from 'redux'
+// // @ts-ignore
+import RegisterReducer from './Reducers/RegisterReducer'
+
+const store = createStore(RegisterReducer)
 
 export default function App() {
     const [loggedUser, setLoggedUser] = useState<LoginResponseInterface>({
