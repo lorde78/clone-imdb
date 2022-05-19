@@ -13,15 +13,19 @@ import CommentForm from "./Component/CommentForm";
 import useGetCookies from "./Hook/useGetCookies";
 import useEraseCookie from "./Hook/useEraseCookie";
 import axios from "axios";
+import { configureStore } from '@reduxjs/toolkit';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import NeedAuth from "./Component/NeedAuth";
 import Gigabar from "./Component/Gigabar";
+import { Register } from './Actions/auth';
+import RegisterReducer from './Reducers/RegisterReducer';
 
-import {createStore } from 'redux'
-// // @ts-ignore
-import RegisterReducer from './Reducers/RegisterReducer'
 
-const store = createStore(RegisterReducer)
+export const store = configureStore({
+    reducer: {
+        register: Register
+    }
+})
 
 export default function App() {
     const [loggedUser, setLoggedUser] = useState<LoginResponseInterface>({
@@ -98,6 +102,7 @@ export default function App() {
                 <Routes>
                     <Route path='/' element={
                         <NeedAuth>
+                            
                             <MovieList movieList={movieList} />
                         </NeedAuth>
                     } />

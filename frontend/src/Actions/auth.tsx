@@ -1,13 +1,16 @@
 import axios from "axios";
 
+
+
 // export const login = (displayName, id, role) => ({
 //   type: "LOGIN",
 //   displayName,
 //   id,
 //   role
 // });
-export const startSignup = () => {
-	return (username, password) => {
+
+export const Register = () => {
+	return (username: any, password: any) => {
 		return axios({
 			url: "http://localhost:2345/register.php",
 			method: "post",
@@ -16,10 +19,10 @@ export const startSignup = () => {
 				username: username,
 				password: password,
 			}),
-		});
-	};
-};
-
+		})
+		.then(res => res.data)
+	}
+}
 
 //       const user = {
 //         displayName: response.data.displayName,
