@@ -87,8 +87,8 @@ export default function App() {
 
     return (
         <BrowserRouter>
+        
              <Gigabar movieList={movieList}/>
-
             <div className='container mt-5'>
                 <HideIfLogged loggedUser={loggedUser}>
                     <LoginForm setLocalUser={setLocalUser} needsLogin={needsLogin} setNeedsLogin={setNeedsLogin} />
