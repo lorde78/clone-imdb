@@ -1,12 +1,12 @@
 <?php
 
-class Blog
+class Comment
 {
     private int $id;
     private int $authorId;
     private string $date;
-    private string $title;
     private string $content;
+    private int $movieId;
 
     /**
      * @return int
@@ -18,9 +18,9 @@ class Blog
 
     /**
      * @param int $id
-     * @return Blog
+     * @return Comment
      */
-    public function setId(int $id): Blog
+    public function setId(int $id): Comment
     {
         $this->id = $id;
         return $this;
@@ -36,11 +36,29 @@ class Blog
 
     /**
      * @param int $authorId
-     * @return Blog
+     * @return Comment
      */
-    public function setAuthorId(int $authorId): Blog
+    public function setAuthorId(int $authorId): Comment
     {
         $this->authorId = $authorId;
+        return $this;
+    }
+
+       /**
+     * @return int
+     */
+    public function getmovieId(): int
+    {
+        return $this->movieId;
+    }
+
+    /**
+     * @param int $movieId
+     * @return Comment
+     */
+    public function setmovieId(int $movieId): Comment
+    {
+        $this->movieId = $movieId;
         return $this;
     }
 
@@ -54,29 +72,11 @@ class Blog
 
     /**
      * @param string $date
-     * @return Blog
+     * @return Comment
      */
-    public function setDate(string $date): Blog
+    public function setDate(string $date): Comment
     {
         $this->date = $date;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-
-    /**
-     * @param string $title
-     * @return Blog
-     */
-    public function setTitle(string $title): Blog
-    {
-        $this->title = $title;
         return $this;
     }
 
@@ -90,9 +90,9 @@ class Blog
 
     /**
      * @param string $content
-     * @return Blog
+     * @return Comment
      */
-    public function setContent(string $content): Blog
+    public function setContent(string $content): Comment
     {
         $this->content = $content;
         return $this;

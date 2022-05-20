@@ -26,10 +26,10 @@ USE `data`;
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Blog`
+-- Structure de la table `Movie`
 --
 
-CREATE TABLE `Blog` (
+CREATE TABLE `Movie` (
   `id` int(11) NOT NULL,
   `authorId` int(11) NOT NULL,
   `date` datetime NOT NULL,
@@ -62,9 +62,9 @@ INSERT INTO `User` (`id`, `username`, `password`) VALUES
 --
 
 --
--- Index pour la table `Blog`
+-- Index pour la table `Movie`
 --
-ALTER TABLE `Blog`
+ALTER TABLE `Movie`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -78,9 +78,9 @@ ALTER TABLE `User`
 --
 
 --
--- AUTO_INCREMENT pour la table `Blog`
+-- AUTO_INCREMENT pour la table `Movie`
 --
-ALTER TABLE `Blog`
+ALTER TABLE `Movie`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --

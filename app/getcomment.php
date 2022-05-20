@@ -2,23 +2,23 @@
 
 require_once 'headers.php';
 require_once 'Classes/PDOFactory.php';
-require_once 'Classes/Movie.php';
+require_once 'Classes/Comment.php';
 
 $pdo = (new PDOFactory())->getPdo();
 
-$query = $pdo->query('SELECT * FROM User INNER JOIN Movie ON Movie.authorId = User.id ORDER BY `date` DESC');
+$query = $pdo->query('SELECT * FROM Movie INNER JOIN Comment ON Comment.movieId = Movie.id;');
 $query->setFetchMode(PDO::FETCH_ASSOC);
 
 $res = [];
 
 foreach ($query->fetchAll() as $post) {
-//    var_dump($post);
+    var_dump($post);
     $res[] = [
         'id' => $post['id'],
         "date" => $post['date'],
-        'title' => $post['title'],
         'content' => $post['content'],
-        'author' => $post['username']
+        'author' => $post['username'],
+        'movie' => $post['movie'],
     ];
 }
 
