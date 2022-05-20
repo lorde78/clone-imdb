@@ -1,10 +1,22 @@
-export default function SignInReducer(state = false, action: any) {
+//@ts-ignore
+import {eraseCookie} from "./Hook/useEraseCookie";
+
+
+
+export function SigninReducer(state = {}, action: any) {
 	switch (action.type) {
-		case 'Signin':    
+		case "Login":
 			return true;
-		case 'Signout':
-			return false;
-        default:
-            return state;
+		case "Logout":
+			
+			return {
+				status: 'error',
+				token: "",
+				username: ""
+			}
+		default:
+			return state
 	}
 }
+
+

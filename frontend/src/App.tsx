@@ -18,21 +18,29 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import NeedAuth from "./Component/NeedAuth";
 import Gigabar from "./Component/Gigabar";
 import { Register } from './Actions/auth';
-import RegisterReducer from './Reducers/RegisterReducer';
+import { RegisterReducer } from './Reducers/RegisterReducer';
+import { Reducer } from './Reducers/Reducer';
+import { useReducer } from 'react';
+import { SigninReducer } from './Reducers/SignInReducer';
 
 
 export const store = configureStore({
     reducer: {
-        register: Register
+        register: Register,
+        signin: SigninReducer
     }
 })
 
 export default function App() {
+    
     const [loggedUser, setLoggedUser] = useState<LoginResponseInterface>({
         status: 'error',
         token: "",
         username: ""
     })
+    const[logout, dispatchLogout] = useReducer(SigninReducer, loggedUser)
+    // @ts-ignore
+    // const[register, dispatchRegister] = useReducer(RegisterReducer, needsLogin)
     const [localUser, setLocalUser] = useState<LocalUserInterface>({ password: "", username: "" })
     const [movieList, setMovieList] = useState<MovieInterface[]>([])
     // Determines if the user wants to LogIn or to Register
@@ -40,7 +48,7 @@ export default function App() {
     const [needsUpdate, setNeedsUpdate] = useState<boolean>(false)
 
     const login = useLogin();
-    const register = useRegister();
+    // const register = useRegister();
     const getMovieList = useGetMovieList();
     const cookies = useGetCookies();
     const eraseCookie = useEraseCookie();
@@ -63,7 +71,9 @@ export default function App() {
                 .then(data => setLoggedUser(data))
         } else if (!needsLogin && localUser.username !== '') {
             console.log('register ?', localUser.username)
+            //@ts-ignore
             register(localUser.username, localUser.password)
+            //@ts-ignore
                 .then(data => setLoggedUser(data))
         }
     }, [localUser])
@@ -77,13 +87,13 @@ export default function App() {
     }, [needsUpdate])
 
     const handleDisconnect = () => {
-        setLoggedUser({
-            status: 'error',
-            token: "",
-            username: ""
-        });
-        eraseCookie();
+        dispatchLogout({type:"Logout"});
+        //@ts-ignore
+        setLoggedUser(logout);
+        
     }
+
+    const [count, dispatch] = useReducer(Reducer, 0);
 
     return (
         <BrowserRouter>
@@ -118,6 +128,10 @@ export default function App() {
                         </NeedAuth>
                     } />
                 </Routes>
+                <div>
+                    <h1>Compteur : {count}</h1>
+                    <button onClick={() => dispatch({type: 'INCREMENT'})}>J'ajoute des trucs</button>
+                </div>
             </div>
         </BrowserRouter>
 
